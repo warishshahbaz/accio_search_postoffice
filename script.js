@@ -30,23 +30,6 @@ $(document).ready(() => {
   });
 });
 
-function getDateTime(timezone) {
-  date = new Date();
-  let options = { timeZone: timezone };
-  let eastCoastTime = date.toLocaleString("en-US", options);
-  return new Date(eastCoastTime).getTime();
-}
-async function getTimezone(timezone) {
-  try {
-    let res = await fetch(
-      `https://usefulangle.com/post/382/${getDateTime(timezone)}`
-    );
-    let result = await res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function ipCall(IP) {
   try {
     let res = await fetch(`https://ipapi.co/${IP}/json/`);
@@ -69,7 +52,6 @@ async function ipCall(IP) {
       `https://maps.google.com/maps?q=${result.latitude}, ${result.longitude}&z=15&output=embed`
     );
 
-    getTimezone(result?.timezone ?? "");
     fetchListOfPostOffice(result?.postal ?? "");
   } catch (error) {
     console.log(error);
